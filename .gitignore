@@ -4,4 +4,9 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .vscode/
+<<<<<<< HEAD
 .DS_Store
+=======
+.DS_Store
+.langgraph_api/
+>>>>>>> feature/02-state-models

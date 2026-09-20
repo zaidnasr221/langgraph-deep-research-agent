@@ -7,7 +7,16 @@ authors = [
     { name = "Zaid Nasr", email = "zaidnasr6@gmail.com" }
 ]
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "colorama",
+    "langchain",
+    "langchain-community",
+    "langchain-openai",
+    "langchain-tavily",
+    "langgraph",
+    "langgraph-cli[inmem]",
+    "python-dotenv",
+]
 
 [project.scripts]
 langgraph-deep-research-agent = "langgraph_deep_research_agent:main"
