@@ -1,8 +1,10 @@
 from dotenv import load_dotenv
-from .states import GenerateAnalystsState , InterviewState
+from .states import GenerateAnalystsState , InterviewState ,ResearchGraphState
 from typing import Literal
 from langgraph.graph import END
 from langchain.messages import AIMessage
+from langgraph.types import Send
+from langchain.messages import HumanMessage
 load_dotenv()
 #conditional edges
 def should_continue(state: GenerateAnalystsState)->Literal["create_analysts","END"]:
@@ -26,3 +28,17 @@ def routes_messages(state: InterviewState,name:str="expert"):
         return "save_interview"
     
     return "ask_question"
+
+def initiate_all_interviews(state:ResearchGraphState):
+    """this is the map step where we run each interview in sub graph using Send API"""
+    human_analyst_feedback = state.get("human_analyst_feedback")
+    if human_analyst_feedback:
+        return "create_analysts"
+    else:
+        topic = state["topic"]
+        return[
+            Send("conduct_interview",{
+                "analyst":analyst,
+                "messages":[HumanMessage(content=f"so you said you were writing an article on {topic}")],
+            }) for analyst in state["analysts"]
+        ]

@@ -19,4 +19,14 @@ class InterviewState(MessagesState):
     analyst:Analyst #my analyst
     interview: str# interview transcript
     sections: list # final key we duplication in outer state for Send() api  
-    
+
+class ResearchGraphState(TypedDict):
+    topic: str # Research topic
+    max_analysts: int #Number of analysts
+    human_analyst_feedback :NotRequired[Optional[str]]# Human feedback  
+    analysts: List[Analyst]#Analysts asking question
+    section:Annotated[list,operator.add] # send() API key    
+    introduction:str
+    content:str
+    conclusion: str
+    final_report : str
